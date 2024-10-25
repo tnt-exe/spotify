@@ -31,8 +31,8 @@ class SpotifyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, mode) => MaterialApp(
           theme: AppTheme.lightTheme,
-          themeMode: mode,
           darkTheme: AppTheme.darkTheme,
+          themeMode: mode,
           debugShowCheckedModeBanner: false,
           home: const SplashPage(),
         ),
