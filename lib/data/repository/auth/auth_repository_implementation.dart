@@ -1,4 +1,7 @@
+import 'package:spotify/data/models/auth/create_user_request.dart';
+import 'package:spotify/data/sources/auth/auth_firebase_service.dart';
 import 'package:spotify/domain/repository/auth/auth_repository.dart';
+import 'package:spotify/service_locator.dart';
 
 class AuthRepositoryImplementation extends AuthRepository {
   @override
@@ -8,8 +11,7 @@ class AuthRepositoryImplementation extends AuthRepository {
   }
 
   @override
-  Future<void> signup() {
-    // TODO: implement signup
-    throw UnimplementedError();
+  Future<void> signup(CreateUserRequest request) async {
+    await sl<AuthFirebaseService>().signup(request);
   }
 }
