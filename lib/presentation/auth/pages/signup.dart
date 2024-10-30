@@ -6,6 +6,7 @@ import 'package:spotify/core/configs/assets/app_vectors.dart';
 import 'package:spotify/data/models/auth/create_user_request.dart';
 import 'package:spotify/domain/usecases/auth/signup.dart';
 import 'package:spotify/presentation/auth/pages/signin.dart';
+import 'package:spotify/presentation/root/pages/root.dart';
 import 'package:spotify/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
@@ -25,7 +26,7 @@ class SignupPage extends StatelessWidget {
           width: 40,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,10 +52,19 @@ class SignupPage extends StatelessWidget {
                   (l) {
                     var snackbar = SnackBar(
                       content: Text(l.toString()),
+                      behavior: SnackBarBehavior.floating,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackbar);
                   },
-                  (r) {},
+                  (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const RootPage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
                 );
               },
               title: "Create Account",
@@ -79,7 +89,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _inputField(
       BuildContext context, String hintText, TextEditingController controller) {
-    return TextFormField(
+    return TextField(
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
@@ -101,7 +111,7 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (BuildContext context) => const SigninPage(),
+                  builder: (BuildContext context) => SigninPage(),
                 ),
               );
             },
