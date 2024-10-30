@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "spotify-clone-tnt",
+          "appId": "1:254205442261:android:9dd9c0666c65d4dd094a5c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "spotify-clone-tnt",
+          "configurations": {
+            "android": "1:254205442261:android:9dd9c0666c65d4dd094a5c",
+            "web": "1:254205442261:web:cde4c9eb1907884e094a5c"
+          }
+        }
+      }
+    }
+  }
+}
