@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
+import 'package:spotify/core/configs/theme/app_colors.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: 4,
+      vsync: this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +42,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _homeTopCard(),
+            _tabs(),
           ],
         ),
       ),
@@ -55,6 +75,49 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _tabs() {
+    return TabBar(
+      controller: _tabController,
+      labelColor: context.isDarkMode ? Colors.white : Colors.black,
+      isScrollable: true,
+      indicatorColor: AppColors.primary,
+      padding: const EdgeInsets.symmetric(
+        vertical: 20,
+        horizontal: 16,
+      ),
+      tabs: const [
+        Text(
+          "News",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+        Text(
+          "Videos",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+        Text(
+          "Artist",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+        Text(
+          "Podcast",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+      ],
     );
   }
 }
