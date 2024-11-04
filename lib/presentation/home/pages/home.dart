@@ -57,9 +57,6 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
-            const SizedBox(
-              height: 40,
-            ),
             const Playlist(),
           ],
         ),
