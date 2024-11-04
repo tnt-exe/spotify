@@ -50,8 +50,6 @@ class _HomePageState extends State<HomePage>
                 controller: _tabController,
                 children: [
                   const NewsSongs(),
-                  const NewsSongs(),
-                  const NewsSongs(),
                   Container(),
                   Container(),
                   Container(),

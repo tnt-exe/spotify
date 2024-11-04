@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
+import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
 import 'package:spotify/presentation/home/bloc/news_songs_cubit.dart';
 import 'package:spotify/presentation/home/bloc/news_songs_state.dart';
@@ -52,6 +54,26 @@ class NewsSongs extends StatelessWidget {
                       fit: BoxFit.cover,
                       image: NetworkImage(
                         "${AppUrls.firestorage}cover.jpg${AppUrls.mediaAlt}",
+                      ),
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      transform: Matrix4.translationValues(10, 10, 0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: context.isDarkMode
+                            ? AppColors.darkGrey
+                            : AppColors.grey,
+                      ),
+                      child: Icon(
+                        Icons.play_arrow_rounded,
+                        color: context.isDarkMode
+                            ? Colors.white
+                            : AppColors.darkGrey,
                       ),
                     ),
                   ),
