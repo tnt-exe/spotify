@@ -29,6 +29,8 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         message = "Wrong password provided for that user.";
       } else if (e.code == "invalid-credential") {
         message = "The email provided is invalid.";
+      } else if (e.code == "network-request-failed") {
+        message = "Network error";
       }
 
       return Left(message);
@@ -58,6 +60,8 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         message = "The account already exists for that email.";
       } else if (e.code == "invalid-email") {
         message = "The email provided is invalid.";
+      } else if (e.code == "network-request-failed") {
+        message = "Network error";
       }
 
       return Left(message);
