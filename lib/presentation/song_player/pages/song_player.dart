@@ -123,6 +123,7 @@ class SongPlayer extends StatelessWidget {
           return Column(
             children: [
               Slider(
+                activeColor: AppColors.grey,
                 min: 0,
                 max: context
                     .read<SongPlayerCubit>()
@@ -137,16 +138,41 @@ class SongPlayer extends StatelessWidget {
                 onChanged: (value) {},
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     formatDuration(
+                        context.read<SongPlayerCubit>().songPosition),
+                  ),
+                  Text(
+                    formatDuration(
                         context.read<SongPlayerCubit>().songDuration),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  context.read<SongPlayerCubit>().playOrPauseSong();
+                },
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.primary,
+                  ),
+                  child: Icon(
+                    context.read<SongPlayerCubit>().audioPlayer.playing
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                  ),
+                ),
               ),
             ],
           );
