@@ -34,7 +34,7 @@ class SongPlayer extends StatelessWidget {
       body: BlocProvider(
         create: (_) => SongPlayerCubit()
           ..loadSong(
-            "${AppUrls.songFirestorage}01. My Soul, Your Beats!.mp3?${AppUrls.mediaAlt}",
+            "https://firebasestorage.googleapis.com/v0/b/spotify-clone-tnt.appspot.com/o/songs%2F01.%20My%20Soul%2C%20Your%20Beats!.mp3?alt=media",
           ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -115,7 +115,7 @@ class SongPlayer extends StatelessWidget {
   Widget _songPlayer(BuildContext context) {
     return BlocBuilder<SongPlayerCubit, SongPlayerState>(
       builder: (context, state) {
-        if (state is SongPlayerLoaded) {
+        if (state is SongPlayerLoading) {
           return const CircularProgressIndicator();
         }
 
