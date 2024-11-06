@@ -32,9 +32,13 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     }
   }
 
+  void changePlayPosition(double position) {
+    audioPlayer.seek(Duration(seconds: position.toInt()));
+  }
+
   void playOrPauseSong() {
     if (audioPlayer.playing) {
-      audioPlayer.stop();
+      audioPlayer.pause();
     } else {
       audioPlayer.play();
     }
