@@ -34,7 +34,7 @@ class SongPlayer extends StatelessWidget {
       body: BlocProvider(
         create: (_) => SongPlayerCubit()
           ..loadSong(
-            "https://firebasestorage.googleapis.com/v0/b/spotify-clone-tnt.appspot.com/o/songs%2F01.%20My%20Soul%2C%20Your%20Beats!.mp3?alt=media",
+            "${AppUrls.songFirestorage}${songEntity.title}${songEntity.type}${AppUrls.mediaAlt}",
           ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -64,10 +64,10 @@ class SongPlayer extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 2.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
-            "${AppUrls.coverFirestorage}cover.jpg${AppUrls.mediaAlt}",
+            "${AppUrls.coverFirestorage}${songEntity.cover}${AppUrls.mediaAlt}",
           ),
         ),
       ),

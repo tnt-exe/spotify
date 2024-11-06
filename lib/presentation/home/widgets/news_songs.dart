@@ -62,10 +62,10 @@ class NewsSongs extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          "${AppUrls.coverFirestorage}cover.jpg${AppUrls.mediaAlt}",
+                          "${AppUrls.coverFirestorage}${songs[index].cover}${AppUrls.mediaAlt}",
                         ),
                       ),
                     ),
