@@ -7,8 +7,10 @@ import 'package:spotify/domain/repository/auth/auth_repository.dart';
 import 'package:spotify/domain/repository/song/song_repository.dart';
 import 'package:spotify/domain/usecases/auth/signin.dart';
 import 'package:spotify/domain/usecases/auth/signup.dart';
+import 'package:spotify/domain/usecases/song/add_or_remove_favorite_song.dart';
 import 'package:spotify/domain/usecases/song/get_news_songs.dart';
 import 'package:spotify/domain/usecases/song/get_playlist.dart';
+import 'package:spotify/domain/usecases/song/is_favorite_song.dart';
 
 final sl = GetIt.instance;
 
@@ -25,4 +27,7 @@ Future<void> initializeDependency() async {
   sl.registerSingleton<SongRepository>(SongRepositoryImplementation());
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
   sl.registerSingleton<GetPlaylistUseCase>(GetPlaylistUseCase());
+  sl.registerSingleton<AddOrRemoveFavoriteSongUseCase>(
+      AddOrRemoveFavoriteSongUseCase());
+  sl.registerSingleton<IsFavoriteSongUseCase>(IsFavoriteSongUseCase());
 }

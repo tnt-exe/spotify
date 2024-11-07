@@ -7,6 +7,8 @@ class SongEntity {
   final num duration;
   final String type;
   final String cover;
+  final bool isFavorite;
+  final String songId;
 
   SongEntity({
     required this.title,
@@ -15,5 +17,7 @@ class SongEntity {
     required this.duration,
     required this.type,
     required this.cover,
+    required this.isFavorite,
+    required this.songId,
   });
 }

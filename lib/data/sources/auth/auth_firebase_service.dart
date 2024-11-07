@@ -40,12 +40,16 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   @override
   Future<Either> signup(CreateUserRequest request) async {
     try {
-      var userData = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userData =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: request.email,
         password: request.password,
       );
 
-      FirebaseFirestore.instance.collection("Users").add({
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(userData.user?.uid)
+          .set({
         "name": request.fullName,
         "email": userData.user?.email,
       });
