@@ -49,7 +49,8 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: const Color(0xff2C2B2B),
+        backgroundColor:
+            context.isDarkMode ? const Color(0xff2C2B2B) : Colors.white,
         title: const Text(
           "Profile",
         ),
