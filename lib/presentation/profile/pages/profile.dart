@@ -4,6 +4,7 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
+import 'package:spotify/presentation/intro/pages/get_started.dart';
 import 'package:spotify/presentation/profile/bloc/favorite_song_cubit.dart';
 import 'package:spotify/presentation/profile/bloc/favorite_song_state.dart';
 import 'package:spotify/presentation/profile/bloc/profile_cubit.dart';
@@ -16,9 +17,40 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BasicAppBar(
-        backgroundColor: Color(0xff2C2B2B),
-        title: Text(
+      appBar: BasicAppBar(
+        action: PopupMenuButton<String>(
+          icon: const Icon(
+            Icons.more_vert_rounded,
+          ),
+          offset: const Offset(0, 50),
+          onSelected: (value) {
+            if (value == "Logout") {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const GetStartedPage(),
+                ),
+                (route) => false,
+              );
+            }
+          },
+          itemBuilder: (context) => <PopupMenuEntry<String>>[
+            const PopupMenuItem<String>(
+              value: 'Logout',
+              child: Row(
+                children: [
+                  Icon(Icons.logout_rounded),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text("Logout"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: const Color(0xff2C2B2B),
+        title: const Text(
           "Profile",
         ),
       ),
