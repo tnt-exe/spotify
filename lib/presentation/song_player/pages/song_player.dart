@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
@@ -26,7 +27,22 @@ class SongPlayer extends StatelessWidget {
           ),
         ),
         action: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "click button => show dummy snackkk bar",
+                  style: TextStyle(
+                    color: context.isDarkMode ? Colors.black : Colors.white,
+                  ),
+                ),
+                backgroundColor:
+                    context.isDarkMode ? Colors.white : Colors.black,
+                duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
           icon: const Icon(
             Icons.more_vert_outlined,
           ),
