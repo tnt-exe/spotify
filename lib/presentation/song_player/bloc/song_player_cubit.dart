@@ -20,7 +20,9 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
   }
 
   void updateSongPlayer() {
-    emit(SongPlayerLoaded());
+    if (!isClosed) {
+      emit(SongPlayerLoaded());
+    }
   }
 
   Future<void> loadSong(String url) async {
