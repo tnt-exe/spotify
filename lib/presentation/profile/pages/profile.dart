@@ -127,7 +127,20 @@ class ProfilePage extends StatelessWidget {
             }
 
             if (state is ProfileLoadFailed) {
-              return const Text("An error occurred");
+              return const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "An error occurred",
+                  ),
+                ],
+              );
             }
 
             return Container();
@@ -254,7 +267,20 @@ class ProfilePage extends StatelessWidget {
                 }
 
                 if (state is FavoriteSongLoadFailed) {
-                  return const Text("An error occurred");
+                  return const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.error_outline_rounded,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "An error occurred",
+                      ),
+                    ],
+                  );
                 }
 
                 return Container();

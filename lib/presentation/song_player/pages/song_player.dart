@@ -77,8 +77,10 @@ class SongPlayer extends StatelessWidget {
   }
 
   Widget _songCover(BuildContext context) {
+    var heightSize = MediaQuery.of(context).size.height / 2.2;
     return Container(
-      height: MediaQuery.of(context).size.height / 2.2,
+      height: heightSize,
+      width: heightSize,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         image: DecorationImage(
@@ -92,35 +94,40 @@ class SongPlayer extends StatelessWidget {
   }
 
   Widget _songDetail() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              songEntity.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                songEntity.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              songEntity.artist,
-              style: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
+              const SizedBox(
+                height: 5,
               ),
-            ),
-          ],
-        ),
-        FavoriteButton(
-          songEntity: songEntity,
-        ),
-      ],
+              Text(
+                songEntity.artist,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+          FavoriteButton(
+            songEntity: songEntity,
+          ),
+        ],
+      ),
     );
   }
 

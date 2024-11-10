@@ -91,10 +91,10 @@ class _HomePageState extends State<HomePage>
               ),
             ),
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(
-                  right: 60,
+                  left: 60,
                 ),
                 child: Image.asset(
                   AppImages.homeArtist,

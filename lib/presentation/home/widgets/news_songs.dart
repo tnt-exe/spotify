@@ -26,7 +26,10 @@ class NewsSongs extends StatelessWidget {
             }
 
             if (state is NewsSongsLoaded) {
-              return _songs(state.songs);
+              return Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: _songs(state.songs),
+              );
             }
 
             return const Center(
