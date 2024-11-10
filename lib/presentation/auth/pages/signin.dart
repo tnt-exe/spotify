@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/button/basic_app_button.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
@@ -51,16 +50,8 @@ class SigninPage extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           l.toString(),
-                          style: TextStyle(
-                            color: context.isDarkMode
-                                ? Colors.black
-                                : Colors.white,
-                          ),
                         ),
-                        backgroundColor:
-                            context.isDarkMode ? Colors.white : Colors.black,
                         duration: const Duration(seconds: 2),
-                        behavior: SnackBarBehavior.floating,
                       ),
                     );
                   },

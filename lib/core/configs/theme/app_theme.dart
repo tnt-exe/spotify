@@ -43,6 +43,13 @@ class AppTheme {
         ),
       ),
     ),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: AppColors.darkGrey,
+      behavior: SnackBarBehavior.floating,
+      contentTextStyle: TextStyle(
+        color: AppColors.lightBackground,
+      ),
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -83,6 +90,13 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
+      ),
+    ),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: AppColors.grey,
+      behavior: SnackBarBehavior.floating,
+      contentTextStyle: TextStyle(
+        color: AppColors.darkBackground,
       ),
     ),
   );
