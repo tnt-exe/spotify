@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify/common/helpers/responsive.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/button/basic_app_button.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
@@ -25,50 +26,53 @@ class SigninPage extends StatelessWidget {
           width: 40,
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _signinTitleText(),
-            const SizedBox(height: 50),
-            _inputField(context, "Enter Username Or Email", _email),
-            const SizedBox(height: 20),
-            _inputField(context, "Password", _password),
-            const SizedBox(height: 50),
-            BasicAppButton(
-              onPressed: () async {
-                var result = await sl<SigninUseCase>().call(
-                  params: SignInRequest(
-                    email: _email.text.toString(),
-                    password: _password.text.toString(),
-                  ),
-                );
-                result.fold(
-                  (l) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          l.toString(),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _signinTitleText(),
+              const SizedBox(height: 50),
+              _inputField(context, "Enter Username Or Email", _email),
+              const SizedBox(height: 20),
+              _inputField(context, "Password", _password),
+              const SizedBox(height: 50),
+              BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SigninUseCase>().call(
+                    params: SignInRequest(
+                      email: _email.text.toString(),
+                      password: _password.text.toString(),
+                    ),
+                  );
+                  result.fold(
+                    (l) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            l.toString(),
+                          ),
+                          duration: const Duration(seconds: 2),
                         ),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                  },
-                  (r) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const HomePage(),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                );
-              },
-              title: "Sign In",
-            ),
-          ],
+                      );
+                    },
+                    (r) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const HomePage(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                  );
+                },
+                title: "Sign In",
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: _signupText(context),
@@ -88,12 +92,17 @@ class SigninPage extends StatelessWidget {
 
   Widget _inputField(
       BuildContext context, String hintText, TextEditingController controller) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-      ).applyDefaults(
-        Theme.of(context).inputDecorationTheme,
+    return SizedBox(
+      width: context.isPhoneScreen
+          ? context.screenWidth
+          : context.responsiveScreenWidth,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+        ).applyDefaults(
+          Theme.of(context).inputDecorationTheme,
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
+import 'package:spotify/common/helpers/responsive.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/button/basic_app_button.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
@@ -74,47 +75,54 @@ class SignupOrSigninPage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: BasicAppButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => SignupPage(),
-                              ),
-                            );
-                          },
-                          title: "Register",
+                  SizedBox(
+                    width: context.isPhoneScreen
+                        ? context.screenWidth
+                        : context.responsiveScreenWidth,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: BasicAppButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SignupPage(),
+                                ),
+                              );
+                            },
+                            title: "Register",
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => SigninPage(),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SigninPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Sign in",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: context.isDarkMode
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
-                            );
-                          },
-                          child: Text(
-                            "Sign in",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: context.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

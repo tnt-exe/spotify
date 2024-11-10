@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify/common/helpers/responsive.dart';
 
 class BasicAppButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -17,7 +18,10 @@ class BasicAppButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        minimumSize: Size.fromHeight(
+        minimumSize: Size(
+          context.isPhoneScreen
+              ? context.screenWidth
+              : context.responsiveScreenWidth,
           height ?? 80,
         ),
       ),
