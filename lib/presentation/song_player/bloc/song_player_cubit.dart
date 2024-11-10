@@ -7,6 +7,8 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
 
   Duration songDuration = Duration.zero;
   Duration songPosition = Duration.zero;
+  double songVolume = 0;
+  bool isLoopOne = false;
 
   SongPlayerCubit() : super(SongPlayerLoaded()) {
     audioPlayer.positionStream.listen((position) {
@@ -17,6 +19,10 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     audioPlayer.durationStream.listen((duration) {
       songDuration = duration!;
     });
+
+    audioPlayer.play();
+
+    songVolume = audioPlayer.volume;
   }
 
   void updateSongPlayer() {
@@ -34,10 +40,6 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     }
   }
 
-  void changePlayPosition(double position) {
-    audioPlayer.seek(Duration(seconds: position.toInt()));
-  }
-
   void playOrPauseSong() {
     if (audioPlayer.playing) {
       audioPlayer.pause();
@@ -46,6 +48,20 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     }
 
     emit(SongPlayerLoaded());
+  }
+
+  void changePlayPosition(double position) {
+    audioPlayer.seek(Duration(seconds: position.toInt()));
+  }
+
+  void changeVolume(double volume) {
+    songVolume = volume;
+    audioPlayer.setVolume(volume);
+  }
+
+  void loopSong() {
+    isLoopOne = !isLoopOne;
+    audioPlayer.setLoopMode(isLoopOne ? LoopMode.one : LoopMode.off);
   }
 
   @override

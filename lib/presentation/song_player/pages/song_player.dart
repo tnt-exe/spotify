@@ -191,23 +191,113 @@ class SongPlayer extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              GestureDetector(
-                onTap: () {
-                  context.read<SongPlayerCubit>().playOrPauseSong();
-                },
-                child: Container(
-                  height: 60,
-                  width: 60,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.primary,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.read<SongPlayerCubit>().loopSong();
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.lightGrey,
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Icon(
+                            Icons.repeat_one_rounded,
+                          ),
+                          if (!context.read<SongPlayerCubit>().isLoopOne)
+                            const Icon(
+                              Icons.clear_rounded,
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: Icon(
-                    context.read<SongPlayerCubit>().audioPlayer.playing
-                        ? Icons.pause
-                        : Icons.play_arrow,
+                  GestureDetector(
+                    onTap: () {
+                      context.read<SongPlayerCubit>().playOrPauseSong();
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.primary,
+                      ),
+                      child: Icon(
+                        context.read<SongPlayerCubit>().audioPlayer.playing
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return BlocProvider.value(
+                            value: BlocProvider.of<SongPlayerCubit>(context),
+                            child: SizedBox(
+                              height: 200,
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.volume_down_rounded,
+                                    ),
+                                    Expanded(
+                                      child: Slider(
+                                        activeColor: AppColors.grey,
+                                        min: 0,
+                                        max: 1,
+                                        value: context
+                                            .read<SongPlayerCubit>()
+                                            .songVolume,
+                                        onChanged: (value) {
+                                          context
+                                              .read<SongPlayerCubit>()
+                                              .changeVolume(value);
+                                        },
+                                      ),
+                                    ),
+                                    Text(
+                                      formatVolume(context
+                                          .read<SongPlayerCubit>()
+                                          .songVolume),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.lightGrey,
+                      ),
+                      child: const Icon(
+                        Icons.volume_up_rounded,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           );
@@ -224,4 +314,6 @@ class SongPlayer extends StatelessWidget {
 
     return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
+
+  String formatVolume(double volume) => (volume * 100).toInt().toString();
 }
