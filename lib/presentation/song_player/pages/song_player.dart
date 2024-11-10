@@ -6,8 +6,11 @@ import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
+import 'package:spotify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:spotify/presentation/song_player/bloc/song_player_cubit.dart';
 import 'package:spotify/presentation/song_player/bloc/song_player_state.dart';
+
+enum SongPlayerMenu { changeMode }
 
 class SongPlayer extends StatelessWidget {
   final SongEntity songEntity;
@@ -26,26 +29,37 @@ class SongPlayer extends StatelessWidget {
             fontSize: 18,
           ),
         ),
-        action: IconButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  "click button => show dummy snackkk bar",
-                  style: TextStyle(
-                    color: context.isDarkMode ? Colors.black : Colors.white,
-                  ),
-                ),
-                backgroundColor:
-                    context.isDarkMode ? Colors.white : Colors.black,
-                duration: const Duration(seconds: 2),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
+        action: PopupMenuButton<SongPlayerMenu>(
           icon: const Icon(
-            Icons.more_vert_outlined,
+            Icons.more_vert_rounded,
           ),
+          offset: const Offset(0, 50),
+          onSelected: (value) {
+            if (value == SongPlayerMenu.changeMode) {
+              context.read<ThemeCubit>().updateTheme(
+                  context.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: SongPlayerMenu.changeMode,
+              child: Row(
+                children: [
+                  Icon(
+                    context.isDarkMode
+                        ? Icons.light_mode_rounded
+                        : Icons.dark_mode_rounded,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      context.isDarkMode ? "Light mode" : "Dark mode",
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
       body: BlocProvider(

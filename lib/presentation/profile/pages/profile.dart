@@ -4,12 +4,15 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
+import 'package:spotify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:spotify/presentation/intro/pages/get_started.dart';
 import 'package:spotify/presentation/profile/bloc/favorite_song_cubit.dart';
 import 'package:spotify/presentation/profile/bloc/favorite_song_state.dart';
 import 'package:spotify/presentation/profile/bloc/profile_cubit.dart';
 import 'package:spotify/presentation/profile/bloc/profile_state.dart';
 import 'package:spotify/presentation/song_player/pages/song_player.dart';
+
+enum ProfileMenu { changeMode, logout }
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -18,13 +21,17 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppBar(
-        action: PopupMenuButton<String>(
+        action: PopupMenuButton<ProfileMenu>(
           icon: const Icon(
             Icons.more_vert_rounded,
           ),
           offset: const Offset(0, 50),
           onSelected: (value) {
-            if (value == "Logout") {
+            if (value == ProfileMenu.changeMode) {
+              context.read<ThemeCubit>().updateTheme(
+                  context.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            }
+            if (value == ProfileMenu.logout) {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -34,9 +41,27 @@ class ProfilePage extends StatelessWidget {
               );
             }
           },
-          itemBuilder: (context) => <PopupMenuEntry<String>>[
-            const PopupMenuItem<String>(
-              value: 'Logout',
+          itemBuilder: (context) => <PopupMenuEntry<ProfileMenu>>[
+            PopupMenuItem<ProfileMenu>(
+              value: ProfileMenu.changeMode,
+              child: Row(
+                children: [
+                  Icon(
+                    context.isDarkMode
+                        ? Icons.light_mode_rounded
+                        : Icons.dark_mode_rounded,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      context.isDarkMode ? "Light mode" : "Dark mode",
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const PopupMenuItem<ProfileMenu>(
+              value: ProfileMenu.logout,
               child: Row(
                 children: [
                   Icon(Icons.logout_rounded),
