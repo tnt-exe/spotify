@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
+import 'package:spotify/common/helpers/responsive.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
@@ -191,113 +192,128 @@ class SongPlayer extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.read<SongPlayerCubit>().loopSong();
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.lightGrey,
+              SizedBox(
+                width: context.isPhoneScreen
+                    ? context.screenWidth
+                    : context.responsiveScreenWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        context.read<SongPlayerCubit>().loopSong();
+                      },
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(
+                              context.read<SongPlayerCubit>().isLoopOne
+                                  ? Icons.repeat_one_rounded
+                                  : Icons.repeat_rounded,
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const Icon(
-                            Icons.repeat_one_rounded,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.read<SongPlayerCubit>().playOrPauseSong();
+                      },
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.primary,
+                        ),
+                        child: Icon(
+                          context.read<SongPlayerCubit>().audioPlayer.playing
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            var volume =
+                                context.read<SongPlayerCubit>().songVolume;
+
+                            return StatefulBuilder(
+                              builder: (_, setState) {
+                                return SizedBox(
+                                  height: 200,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 40,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<SongPlayerCubit>()
+                                                .changeVolume(0);
+                                            setState(() {
+                                              volume = 0;
+                                            });
+                                          },
+                                          child: Icon(
+                                            getVolumeIcon(volume),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Slider(
+                                            activeColor: AppColors.grey,
+                                            value: volume,
+                                            onChanged: (value) {
+                                              context
+                                                  .read<SongPlayerCubit>()
+                                                  .changeVolume(value);
+                                              setState(() {
+                                                volume = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        Text(
+                                          formatVolume(volume),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          getVolumeIcon(
+                            context.read<SongPlayerCubit>().songVolume,
                           ),
-                          if (!context.read<SongPlayerCubit>().isLoopOne)
-                            const Icon(
-                              Icons.clear_rounded,
-                            ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.read<SongPlayerCubit>().playOrPauseSong();
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.primary,
-                      ),
-                      child: Icon(
-                        context.read<SongPlayerCubit>().audioPlayer.playing
-                            ? Icons.pause
-                            : Icons.play_arrow,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return BlocProvider.value(
-                            value: BlocProvider.of<SongPlayerCubit>(context),
-                            child: SizedBox(
-                              height: 200,
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 40,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.volume_down_rounded,
-                                    ),
-                                    Expanded(
-                                      child: Slider(
-                                        activeColor: AppColors.grey,
-                                        min: 0,
-                                        max: 1,
-                                        value: context
-                                            .read<SongPlayerCubit>()
-                                            .songVolume,
-                                        onChanged: (value) {
-                                          context
-                                              .read<SongPlayerCubit>()
-                                              .changeVolume(value);
-                                        },
-                                      ),
-                                    ),
-                                    Text(
-                                      formatVolume(context
-                                          .read<SongPlayerCubit>()
-                                          .songVolume),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.lightGrey,
-                      ),
-                      child: const Icon(
-                        Icons.volume_up_rounded,
-                      ),
-                    ),
-                  )
-                ],
+                  ],
+                ),
               ),
             ],
           );
@@ -316,4 +332,16 @@ class SongPlayer extends StatelessWidget {
   }
 
   String formatVolume(double volume) => (volume * 100).toInt().toString();
+
+  IconData getVolumeIcon(double volume) {
+    if (volume == 0) {
+      return Icons.volume_off_rounded;
+    }
+
+    if (volume <= 0.5) {
+      return Icons.volume_down_rounded;
+    }
+
+    return Icons.volume_up_rounded;
+  }
 }
