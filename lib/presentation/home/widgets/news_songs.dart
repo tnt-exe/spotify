@@ -97,8 +97,7 @@ class NewsSongs extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   songs[index].title,
-                  style: TextStyle(
-                    color: context.isDarkMode ? Colors.white : Colors.black,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -106,8 +105,7 @@ class NewsSongs extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   songs[index].artist,
-                  style: TextStyle(
-                    color: context.isDarkMode ? Colors.white : Colors.black,
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                   ),
