@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
+import 'package:spotify/core/configs/assets/app_vectors.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
 import 'package:spotify/presentation/home/bloc/playlist_cubit.dart';
@@ -32,22 +34,37 @@ class Playlist extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Playlist",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
-                      Text(
-                        "See more",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 10,
-                          color: Color(0xffc6c6c6),
+                      GestureDetector(
+                        onTap: () {
+                          showAboutDialog(
+                            context: context,
+                            applicationIcon: SvgPicture.asset(
+                              AppVectors.logo,
+                              height: 40,
+                              width: 40,
+                            ),
+                            applicationName: "Spotify Clone",
+                            applicationVersion: "1.0.0-sigma",
+                            applicationLegalese: "© 2024 monke 🐒",
+                          );
+                        },
+                        child: const Text(
+                          "See more",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: Color(0xffc6c6c6),
+                          ),
                         ),
                       ),
                     ],
