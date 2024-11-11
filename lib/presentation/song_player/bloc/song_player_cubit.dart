@@ -40,33 +40,33 @@ class SongPlayerCubit extends Cubit<SongPlayerState> {
     }
   }
 
-  void playOrPauseSong() {
+  Future<void> playOrPauseSong() async {
     if (audioPlayer.playing) {
-      audioPlayer.pause();
+      await audioPlayer.pause();
     } else {
-      audioPlayer.play();
+      await audioPlayer.play();
     }
 
     emit(SongPlayerLoaded());
   }
 
-  void changePlayPosition(double position) {
-    audioPlayer.seek(Duration(seconds: position.toInt()));
+  Future<void> changePlayPosition(double position) async {
+    await audioPlayer.seek(Duration(seconds: position.toInt()));
   }
 
-  void changeVolume(double volume) {
+  Future<void> changeVolume(double volume) async {
     songVolume = volume;
-    audioPlayer.setVolume(volume);
+    await audioPlayer.setVolume(volume);
   }
 
-  void loopSong() {
+  Future<void> loopSong() async {
     isLoopOne = !isLoopOne;
-    audioPlayer.setLoopMode(isLoopOne ? LoopMode.one : LoopMode.off);
+    await audioPlayer.setLoopMode(isLoopOne ? LoopMode.one : LoopMode.off);
   }
 
   @override
-  Future<void> close() {
-    audioPlayer.dispose();
+  Future<void> close() async {
+    await audioPlayer.dispose();
     return super.close();
   }
 }

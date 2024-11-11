@@ -169,8 +169,10 @@ class SongPlayer extends StatelessWidget {
                     .songPosition
                     .inSeconds
                     .toDouble(),
-                onChanged: (value) {
-                  context.read<SongPlayerCubit>().changePlayPosition(value);
+                onChanged: (value) async {
+                  await context
+                      .read<SongPlayerCubit>()
+                      .changePlayPosition(value);
                 },
               ),
               const SizedBox(
@@ -200,8 +202,8 @@ class SongPlayer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        context.read<SongPlayerCubit>().loopSong();
+                      onTap: () async {
+                        await context.read<SongPlayerCubit>().loopSong();
                       },
                       child: Container(
                         height: 60,
@@ -222,8 +224,8 @@ class SongPlayer extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        context.read<SongPlayerCubit>().playOrPauseSong();
+                      onTap: () async {
+                        await context.read<SongPlayerCubit>().playOrPauseSong();
                       },
                       child: Container(
                         height: 60,
@@ -261,8 +263,8 @@ class SongPlayer extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         GestureDetector(
-                                          onTap: () {
-                                            context
+                                          onTap: () async {
+                                            await context
                                                 .read<SongPlayerCubit>()
                                                 .changeVolume(0);
                                             setState(() {
@@ -277,8 +279,8 @@ class SongPlayer extends StatelessWidget {
                                           child: Slider(
                                             activeColor: AppColors.grey,
                                             value: volume,
-                                            onChanged: (value) {
-                                              context
+                                            onChanged: (value) async {
+                                              await context
                                                   .read<SongPlayerCubit>()
                                                   .changeVolume(value);
                                               setState(() {
