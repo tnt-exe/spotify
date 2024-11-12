@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
@@ -67,7 +68,7 @@ class NewsSongs extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
+                        image: CachedNetworkImageProvider(
                           "${AppUrls.coverFirestorage}${songs[index].cover}${AppUrls.mediaAlt}",
                         ),
                       ),
