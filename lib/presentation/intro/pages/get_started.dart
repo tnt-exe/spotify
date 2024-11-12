@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify/common/helpers/responsive.dart';
 import 'package:spotify/common/widgets/button/basic_app_button.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
@@ -19,10 +20,10 @@ class GetStartedPage extends StatelessWidget {
               vertical: 40,
               horizontal: 40,
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
+                fit: context.isPhoneScreen ? BoxFit.fill : BoxFit.contain,
+                image: const AssetImage(
                   AppImages.introBg,
                 ),
               ),
