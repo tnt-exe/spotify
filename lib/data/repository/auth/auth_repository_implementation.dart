@@ -20,4 +20,9 @@ class AuthRepositoryImplementation extends AuthRepository {
   Future<Either> getUser() async {
     return await sl<AuthFirebaseService>().getUser();
   }
+
+  @override
+  Future<Either> signinGoogle() async {
+    return await sl<AuthFirebaseService>().signinGoogle();
+  }
 }

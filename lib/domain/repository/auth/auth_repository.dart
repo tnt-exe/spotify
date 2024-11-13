@@ -3,6 +3,8 @@ import 'package:spotify/data/models/auth/create_user_request.dart';
 import 'package:spotify/data/models/auth/sign_in_request.dart';
 
 abstract class AuthRepository {
+  Future<Either> signinGoogle();
+
   Future<Either> signup(CreateUserRequest request);
 
   Future<Either> signin(SignInRequest request);

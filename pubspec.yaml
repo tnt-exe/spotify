@@ -23,6 +23,7 @@ dependencies:
   cloud_firestore:
   just_audio:
   cached_network_image:
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:

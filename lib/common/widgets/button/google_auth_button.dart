@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/helpers/responsive.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
+import 'package:spotify/domain/usecases/auth/signin_google.dart';
+import 'package:spotify/presentation/home/pages/home.dart';
+import 'package:spotify/service_locator.dart';
 
 class GoogleAuthButton extends StatelessWidget {
   const GoogleAuthButton({super.key});
@@ -48,8 +51,29 @@ class GoogleAuthButton extends StatelessWidget {
                 : context.responsiveScreenWidth,
             child: Expanded(
               child: TextButton(
-                onPressed: () {
-                  //todo: gg auth
+                onPressed: () async {
+                  var result = await sl<SigninGoogleUseCase>().call();
+                  result.fold(
+                    (l) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            l.toString(),
+                          ),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                    (r) {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const HomePage(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
