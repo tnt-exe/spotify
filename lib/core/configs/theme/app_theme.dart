@@ -50,6 +50,11 @@ class AppTheme {
         color: AppColors.lightBackground,
       ),
     ),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.darkBackground,
+      thickness: 0.5,
+      space: 50,
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -98,6 +103,11 @@ class AppTheme {
       contentTextStyle: TextStyle(
         color: AppColors.darkBackground,
       ),
+    ),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.lightBackground,
+      thickness: 0.5,
+      space: 50,
     ),
   );
 }
