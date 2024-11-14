@@ -7,6 +7,13 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     fontFamily: "Satoshi",
+    indicatorColor: AppColors.grey,
+    tabBarTheme: TabBarTheme(
+      dividerColor: Colors.transparent,
+      overlayColor: WidgetStateColor.resolveWith(
+        (_) => Colors.grey.shade300,
+      ),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.transparent,
@@ -29,11 +36,19 @@ class AppTheme {
           width: 0.4,
         ),
       ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.blue,
+          width: 2,
+        ),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
-        elevation: 0,
+        foregroundColor: Colors.white,
+        overlayColor: Colors.transparent,
         textStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -41,6 +56,11 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        overlayColor: Colors.grey,
       ),
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -55,6 +75,12 @@ class AppTheme {
       thickness: 0.5,
       space: 50,
     ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Colors.blue,
+    ),
+    popupMenuTheme: const PopupMenuThemeData(
+      surfaceTintColor: Colors.transparent,
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -62,6 +88,13 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
     fontFamily: "Satoshi",
+    indicatorColor: Colors.black12,
+    tabBarTheme: TabBarTheme(
+      dividerColor: Colors.transparent,
+      overlayColor: WidgetStateColor.resolveWith(
+        (_) => Colors.grey.shade900,
+      ),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.transparent,
@@ -84,10 +117,19 @@ class AppTheme {
           width: 0.4,
         ),
       ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.blue,
+          width: 2,
+        ),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        overlayColor: Colors.transparent,
         textStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -95,6 +137,11 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        overlayColor: Colors.grey,
       ),
     ),
     snackBarTheme: const SnackBarThemeData(
@@ -108,6 +155,12 @@ class AppTheme {
       color: AppColors.lightBackground,
       thickness: 0.5,
       space: 50,
+    ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Colors.blue,
+    ),
+    popupMenuTheme: const PopupMenuThemeData(
+      surfaceTintColor: Colors.transparent,
     ),
   );
 }
