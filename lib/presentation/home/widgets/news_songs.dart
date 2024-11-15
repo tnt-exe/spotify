@@ -5,6 +5,7 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
+import 'package:spotify/presentation/auth/bloc/auth_cubit.dart';
 import 'package:spotify/presentation/home/bloc/news_songs_cubit.dart';
 import 'package:spotify/presentation/home/bloc/news_songs_state.dart';
 import 'package:spotify/presentation/song_player/pages/song_player.dart';
@@ -15,7 +16,10 @@ class NewsSongs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => NewsSongsCubit()..getNewsSongs(),
+      create: (_) => NewsSongsCubit()
+        ..getNewsSongs(
+          context.read<AuthCubit>().state!,
+        ),
       child: SizedBox(
         height: 200,
         child: BlocBuilder<NewsSongsCubit, NewsSongsState>(

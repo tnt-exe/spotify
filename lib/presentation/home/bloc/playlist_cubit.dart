@@ -6,8 +6,10 @@ import 'package:spotify/service_locator.dart';
 class PlaylistCubit extends Cubit<PlaylistState> {
   PlaylistCubit() : super(PlaylistLoading());
 
-  Future<void> getPlaylist() async {
-    var returnedSongs = await sl<GetPlaylistUseCase>().call();
+  Future<void> getPlaylist(String uId) async {
+    var returnedSongs = await sl<GetPlaylistUseCase>().call(
+      params: uId,
+    );
 
     returnedSongs.fold(
       (l) {

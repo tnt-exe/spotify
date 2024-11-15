@@ -3,9 +3,9 @@ import 'package:spotify/core/usecase/usecase.dart';
 import 'package:spotify/domain/repository/song/song_repository.dart';
 import 'package:spotify/service_locator.dart';
 
-class GetFavoriteSongUseCase implements UseCase<Either, dynamic> {
+class GetFavoriteSongUseCase implements UseCase<Either, String> {
   @override
-  Future<Either> call({params}) async {
-    return await sl<SongRepository>().getUserFavoriteSongs();
+  Future<Either> call({String? params}) async {
+    return await sl<SongRepository>().getUserFavoriteSongs(params!);
   }
 }

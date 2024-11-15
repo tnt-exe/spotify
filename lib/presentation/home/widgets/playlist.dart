@@ -6,6 +6,7 @@ import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/assets/app_vectors.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
+import 'package:spotify/presentation/auth/bloc/auth_cubit.dart';
 import 'package:spotify/presentation/home/bloc/playlist_cubit.dart';
 import 'package:spotify/presentation/home/bloc/playlist_state.dart';
 import 'package:spotify/presentation/song_player/pages/song_player.dart';
@@ -16,7 +17,10 @@ class Playlist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => PlaylistCubit()..getPlaylist(),
+      create: (_) => PlaylistCubit()
+        ..getPlaylist(
+          context.read<AuthCubit>().state!,
+        ),
       child: BlocBuilder<PlaylistCubit, PlaylistState>(
         builder: (context, state) {
           if (state is PlaylistLoading) {

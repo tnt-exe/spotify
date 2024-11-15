@@ -23,12 +23,12 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   @override
   Future<Either> signin(SignInRequest request) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      var result = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: request.email,
         password: request.password,
       );
 
-      return const Right("signin was successful");
+      return Right(result.user?.uid);
     } on FirebaseAuthException catch (e) {
       String message = "";
 
@@ -63,7 +63,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         "email": userData.user?.email,
       });
 
-      return const Right("signup was successful");
+      return Right(userData.user?.uid);
     } on FirebaseAuthException catch (e) {
       String message = "";
 

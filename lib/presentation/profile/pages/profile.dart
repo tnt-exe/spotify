@@ -5,6 +5,7 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/app_bar.dart';
 import 'package:spotify/common/widgets/favorite_button/favorite_button.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
+import 'package:spotify/presentation/auth/bloc/auth_cubit.dart';
 import 'package:spotify/presentation/choose_mode/bloc/theme_cubit.dart';
 import 'package:spotify/presentation/intro/pages/get_started.dart';
 import 'package:spotify/presentation/profile/bloc/favorite_song_cubit.dart';
@@ -33,6 +34,7 @@ class ProfilePage extends StatelessWidget {
                   context.isDarkMode ? ThemeMode.light : ThemeMode.dark);
             }
             if (value == ProfileMenu.logout) {
+              context.read<AuthCubit>().logOut();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -178,7 +180,10 @@ class ProfilePage extends StatelessWidget {
 
   Widget _favoriteSongs() {
     return BlocProvider(
-      create: (context) => FavoriteSongCubit()..getFavoriteSongs(),
+      create: (context) => FavoriteSongCubit()
+        ..getFavoriteSongs(
+          context.read<AuthCubit>().state!,
+        ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,

@@ -4,6 +4,7 @@ import 'package:spotify/common/bloc/favorite_button/favorite_button_cubit.dart';
 import 'package:spotify/common/bloc/favorite_button/favorite_button_state.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/domain/entities/song/song.dart';
+import 'package:spotify/presentation/auth/bloc/auth_cubit.dart';
 
 class FavoriteButton extends StatelessWidget {
   final SongEntity songEntity;
@@ -23,9 +24,10 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonInit) {
             return IconButton(
               onPressed: () async {
-                await context
-                    .read<FavoriteButtonCubit>()
-                    .favoriteButtonUpdate(songEntity.songId);
+                await context.read<FavoriteButtonCubit>().favoriteButtonUpdate(
+                      songEntity.songId,
+                      context.read<AuthCubit>().state!,
+                    );
 
                 if (function != null) {
                   function!();
@@ -44,9 +46,10 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonUpdate) {
             return IconButton(
               onPressed: () {
-                context
-                    .read<FavoriteButtonCubit>()
-                    .favoriteButtonUpdate(songEntity.songId);
+                context.read<FavoriteButtonCubit>().favoriteButtonUpdate(
+                      songEntity.songId,
+                      context.read<AuthCubit>().state!,
+                    );
               },
               icon: Icon(
                 state.isFavorite

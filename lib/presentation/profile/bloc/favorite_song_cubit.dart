@@ -8,8 +8,10 @@ class FavoriteSongCubit extends Cubit<FavoriteSongState> {
   FavoriteSongCubit() : super(FavoriteSongLoading());
 
   List<SongEntity> favoriteSongList = [];
-  Future<void> getFavoriteSongs() async {
-    var result = await sl<GetFavoriteSongUseCase>().call();
+  Future<void> getFavoriteSongs(String uId) async {
+    var result = await sl<GetFavoriteSongUseCase>().call(
+      params: uId,
+    );
 
     result.fold(
       (l) {
