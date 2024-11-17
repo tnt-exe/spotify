@@ -107,7 +107,6 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   @override
   Future<Either> signinGoogle() async {
     try {
-      //todo: need major fix
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final googleAuth = await googleUser?.authentication;
@@ -132,11 +131,12 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
         });
       }
 
-      return const Right("google sign in success");
+      return Right(userData.user?.uid);
     } catch (e) {
       debugPrint(e.toString());
 
-      return const Left("error");
+      return const Left(
+          "There is an error occurred while trying to log you in");
     }
   }
 }
