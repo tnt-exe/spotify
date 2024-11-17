@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "254205442261",
+    "firebase_url": "https://spotify-clone-tnt-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "spotify-clone-tnt",
     "storage_bucket": "spotify-clone-tnt.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.spotify"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "254205442261-v8q65l2r2t2pbs7q804b8l07meboniuq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spotify",
+            "certificate_hash": "c7f17bce74899e72c6c00e2310347b3a1842d7c3"
+          }
+        },
+        {
+          "client_id": "254205442261-52tmmrch8nnmok1stecpehj04brh4idr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAm8icP8HYrMiYIFtgoP8Du4y5fZf8LH7M"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254205442261-52tmmrch8nnmok1stecpehj04brh4idr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
