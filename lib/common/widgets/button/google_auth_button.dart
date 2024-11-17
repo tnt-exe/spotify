@@ -49,52 +49,50 @@ class GoogleAuthButton extends StatelessWidget {
             width: context.isPhoneScreen
                 ? context.screenWidth
                 : context.responsiveScreenWidth,
-            child: Expanded(
-              child: TextButton(
-                onPressed: () async {
-                  var result = await sl<SigninGoogleUseCase>().call();
-                  result.fold(
-                    (l) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            l.toString(),
-                          ),
-                          duration: const Duration(seconds: 2),
+            child: TextButton(
+              onPressed: () async {
+                var result = await sl<SigninGoogleUseCase>().call();
+                result.fold(
+                  (l) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          l.toString(),
                         ),
-                      );
-                    },
-                    (r) {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const HomePage(),
-                        ),
-                        (route) => false,
-                      );
-                    },
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      AppVectors.googleLogo,
-                      width: 25,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Sign in with Google",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: context.isDarkMode ? Colors.white : Colors.black,
+                        duration: const Duration(seconds: 2),
                       ),
+                    );
+                  },
+                  (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const HomePage(),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    AppVectors.googleLogo,
+                    width: 25,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Sign in with Google",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
