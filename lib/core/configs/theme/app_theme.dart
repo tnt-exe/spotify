@@ -3,6 +3,9 @@ import 'package:spotify/core/configs/theme/app_colors.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
+    colorScheme: const ColorScheme.light(
+      primary: Colors.blueAccent,
+    ),
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
@@ -34,13 +37,6 @@ class AppTheme {
         borderSide: const BorderSide(
           color: Colors.black,
           width: 0.4,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(
-          color: Colors.blue,
-          width: 2,
         ),
       ),
     ),
@@ -75,15 +71,12 @@ class AppTheme {
       thickness: 0.5,
       space: 50,
     ),
-    progressIndicatorTheme: const ProgressIndicatorThemeData(
-      color: Colors.blue,
-    ),
-    popupMenuTheme: const PopupMenuThemeData(
-      surfaceTintColor: Colors.transparent,
-    ),
   );
 
   static final darkTheme = ThemeData(
+    colorScheme: const ColorScheme.dark(
+      primary: Colors.blueAccent,
+    ),
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
@@ -117,13 +110,6 @@ class AppTheme {
           width: 0.4,
         ),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: const BorderSide(
-          color: Colors.blue,
-          width: 2,
-        ),
-      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -155,12 +141,6 @@ class AppTheme {
       color: AppColors.lightBackground,
       thickness: 0.5,
       space: 50,
-    ),
-    progressIndicatorTheme: const ProgressIndicatorThemeData(
-      color: Colors.blue,
-    ),
-    popupMenuTheme: const PopupMenuThemeData(
-      surfaceTintColor: Colors.transparent,
     ),
   );
 }
