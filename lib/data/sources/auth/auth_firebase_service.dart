@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
 import 'package:spotify/data/models/auth/create_user_request.dart';
@@ -133,8 +132,6 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
 
       return Right(userData.user?.uid);
     } catch (e) {
-      debugPrint(e.toString());
-
       return const Left(
           "There is an error occurred while trying to log you in");
     }
