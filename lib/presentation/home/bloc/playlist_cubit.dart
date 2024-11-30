@@ -12,11 +12,11 @@ class PlaylistCubit extends Cubit<PlaylistState> {
     );
 
     returnedSongs.fold(
-      (l) {
+      (error) {
         emit(PlaylistLoadFailure());
       },
-      (r) {
-        emit(PlaylistLoaded(songs: r));
+      (playList) {
+        emit(PlaylistLoaded(songs: playList));
       },
     );
   }

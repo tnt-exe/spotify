@@ -54,18 +54,22 @@ class SignupPage extends StatelessWidget {
                     ),
                   );
                   result.fold(
-                    (l) {
+                    (error) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            l.toString(),
+                            error.toString(),
                           ),
                           duration: const Duration(seconds: 2),
                         ),
                       );
                     },
-                    (r) {
-                      context.read<AuthCubit>().logIn(r);
+                    (userUid) {
+                      if (userUid == null) {
+                        return;
+                      }
+
+                      context.read<AuthCubit>().logIn(userUid);
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(

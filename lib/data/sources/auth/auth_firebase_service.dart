@@ -10,18 +10,18 @@ import 'package:spotify/data/models/auth/user.dart';
 import 'package:spotify/domain/entities/auth/user.dart';
 
 abstract class AuthFirebaseService {
-  Future<Either> signinGoogle();
+  Future<Either<String, String?>> signinGoogle();
 
-  Future<Either> signup(CreateUserRequest request);
+  Future<Either<String, String?>> signup(CreateUserRequest request);
 
-  Future<Either> signin(SignInRequest request);
+  Future<Either<String, String?>> signin(SignInRequest request);
 
-  Future<Either> getUser();
+  Future<Either<String, UserEntity>> getUser();
 }
 
 class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   @override
-  Future<Either> signin(SignInRequest request) async {
+  Future<Either<String, String?>> signin(SignInRequest request) async {
     try {
       var result = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: request.email,
@@ -47,7 +47,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   }
 
   @override
-  Future<Either> signup(CreateUserRequest request) async {
+  Future<Either<String, String?>> signup(CreateUserRequest request) async {
     try {
       UserCredential userData =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -82,7 +82,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   }
 
   @override
-  Future<Either> getUser() async {
+  Future<Either<String, UserEntity>> getUser() async {
     try {
       FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -105,7 +105,7 @@ class AuthFirebaseServiceImplementation extends AuthFirebaseService {
   }
 
   @override
-  Future<Either> signinGoogle() async {
+  Future<Either<String, String?>> signinGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 

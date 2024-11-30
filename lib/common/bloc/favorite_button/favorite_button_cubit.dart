@@ -15,9 +15,9 @@ class FavoriteButtonCubit extends Cubit<FavoriteButtonState> {
       ),
     );
 
-    result.fold((l) {}, (r) {
+    result.fold((error) {}, (isFavorite) {
       emit(FavoriteButtonUpdate(
-        isFavorite: r,
+        isFavorite: isFavorite,
       ));
     });
   }

@@ -10,11 +10,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     var result = await sl<GetUserUseCase>().call();
 
     result.fold(
-      (l) {
+      (error) {
         emit(ProfileLoadFailed());
       },
-      (r) {
-        emit(ProfileLoaded(userEntity: r));
+      (user) {
+        emit(ProfileLoaded(userEntity: user));
       },
     );
   }

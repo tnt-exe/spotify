@@ -4,9 +4,10 @@ import 'package:spotify/data/models/song/user_song.dart';
 import 'package:spotify/domain/repository/song/song_repository.dart';
 import 'package:spotify/service_locator.dart';
 
-class AddOrRemoveFavoriteSongUseCase implements UseCase<Either, UserSong> {
+class AddOrRemoveFavoriteSongUseCase
+    implements UseCase<Either<String, bool>, UserSong> {
   @override
-  Future<Either> call({UserSong? params}) async {
+  Future<Either<String, bool>> call({UserSong? params}) async {
     return await sl<SongRepository>().addOrRemoveFavoriteSongs(params!);
   }
 }

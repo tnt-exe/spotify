@@ -14,15 +14,15 @@ class FavoriteSongCubit extends Cubit<FavoriteSongState> {
     );
 
     result.fold(
-      (l) {
+      (error) {
         emit(
           FavoriteSongLoadFailed(),
         );
       },
-      (r) {
-        favoriteSongList = r;
+      (favoriteSongListResult) {
+        favoriteSongList = favoriteSongListResult;
         emit(
-          FavoriteSongLoaded(favoriteSongList: r),
+          FavoriteSongLoaded(favoriteSongList: favoriteSongListResult),
         );
       },
     );

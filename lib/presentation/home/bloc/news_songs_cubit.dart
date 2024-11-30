@@ -12,11 +12,11 @@ class NewsSongsCubit extends Cubit<NewsSongsState> {
     );
 
     returnedSongs.fold(
-      (l) {
+      (error) {
         emit(NewsSongsLoadFailure());
       },
-      (r) {
-        emit(NewsSongsLoaded(songs: r));
+      (newSongsList) {
+        emit(NewsSongsLoaded(songs: newSongsList));
       },
     );
   }

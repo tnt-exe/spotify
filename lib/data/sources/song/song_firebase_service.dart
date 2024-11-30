@@ -8,16 +8,16 @@ import 'package:spotify/domain/usecases/song/is_favorite_song.dart';
 import 'package:spotify/service_locator.dart';
 
 abstract class SongFirebaseService {
-  Future<Either> getNewSongs(String? uId);
-  Future<Either> getPlaylist(String? uid);
-  Future<Either> addOrRemoveFavoriteSongs(UserSong userSong);
+  Future<Either<String, List<SongEntity>>> getNewSongs(String? uId);
+  Future<Either<String, List<SongEntity>>> getPlaylist(String? uid);
+  Future<Either<String, bool>> addOrRemoveFavoriteSongs(UserSong userSong);
   Future<bool> isFavoriteSong(UserSong userSong);
-  Future<Either> getUserFavoriteSongs(String? uId);
+  Future<Either<String, List<SongEntity>>> getUserFavoriteSongs(String? uId);
 }
 
 class SongFirebaseServiceImplementation implements SongFirebaseService {
   @override
-  Future<Either> getNewSongs(String? uId) async {
+  Future<Either<String, List<SongEntity>>> getNewSongs(String? uId) async {
     try {
       List<SongEntity> songs = [];
 
@@ -49,7 +49,7 @@ class SongFirebaseServiceImplementation implements SongFirebaseService {
   }
 
   @override
-  Future<Either> getPlaylist(String? uId) async {
+  Future<Either<String, List<SongEntity>>> getPlaylist(String? uId) async {
     try {
       List<SongEntity> songs = [];
 
@@ -80,7 +80,8 @@ class SongFirebaseServiceImplementation implements SongFirebaseService {
   }
 
   @override
-  Future<Either> addOrRemoveFavoriteSongs(UserSong userSong) async {
+  Future<Either<String, bool>> addOrRemoveFavoriteSongs(
+      UserSong userSong) async {
     try {
       final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -144,7 +145,8 @@ class SongFirebaseServiceImplementation implements SongFirebaseService {
   }
 
   @override
-  Future<Either> getUserFavoriteSongs(String? uId) async {
+  Future<Either<String, List<SongEntity>>> getUserFavoriteSongs(
+      String? uId) async {
     try {
       final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
