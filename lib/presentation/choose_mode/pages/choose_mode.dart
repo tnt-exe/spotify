@@ -33,7 +33,7 @@ class ChooseModePage extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -79,8 +79,8 @@ class ChooseModePage extends StatelessWidget {
                                 height: 80,
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xff30393C).withOpacity(0.5),
+                                  color: const Color(0xff30393C)
+                                      .withValues(alpha: 0.5),
                                   shape: BoxShape.circle,
                                 ),
                                 child: SvgPicture.asset(
@@ -123,8 +123,8 @@ class ChooseModePage extends StatelessWidget {
                                 height: 80,
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xff30393C).withOpacity(0.5),
+                                  color: const Color(0xff30393C)
+                                      .withValues(alpha: 0.5),
                                   shape: BoxShape.circle,
                                 ),
                                 child: SvgPicture.asset(
