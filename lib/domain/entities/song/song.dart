@@ -7,7 +7,7 @@ class SongEntity {
   final num duration;
   final String type;
   final String cover;
-  final bool isFavorite;
+  bool isFavorite;
   final String songId;
 
   SongEntity({

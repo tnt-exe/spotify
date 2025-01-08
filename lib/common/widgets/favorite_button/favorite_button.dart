@@ -44,6 +44,7 @@ class FavoriteButton extends StatelessWidget {
           }
 
           if (state is FavoriteButtonUpdate) {
+            songEntity.isFavorite = state.isFavorite;
             return IconButton(
               onPressed: () {
                 context.read<FavoriteButtonCubit>().favoriteButtonUpdate(
